@@ -66,6 +66,7 @@ export class Resize extends BaseModule {
 		// set the proper cursor everywhere
 		this.setCursor(this.dragBox.style.cursor);
 		// listen for movement and mouseup
+		this.throttleDrag = this.throttle(this.handleDrag, 100);
 		document.addEventListener('mousemove', this.throttleDrag, false);
 		document.addEventListener('mouseup', this.handleMouseup, false);
 	};
@@ -78,10 +79,6 @@ export class Resize extends BaseModule {
 		document.removeEventListener('mouseup', this.handleMouseup);
 	};
 
-	throttleDrag = () => {
-		this.throttle(this.handleDrag, 300);
-	};
-
 	throttle = (fun, delay) => {
 		var timer = null;
 		var startTime = Date.now();
@@ -92,10 +89,12 @@ export class Resize extends BaseModule {
 			var args = arguments;
 			clearTimeout(timer);
 			if (remaining <= 0) {
-				func.apply(context, args);
+				fun.apply(context, args);
 				startTime = Date.now();
 			} else {
-				timer = setTimeout(fun, remaining);
+				timer = setTimeout(() => {
+					fun.apply(context, args);
+				}, remaining);
 			}
 		};
 	};

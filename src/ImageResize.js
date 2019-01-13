@@ -227,7 +227,8 @@ if (window.Quill) {
 		}
 	}
 
-	window.Quill.register(ImageFormat, true);
+	// window.Quill.register(ImageFormat, true);
+	window.Quill.register('formats/image', ImageFormat);
 	//END allow image alignment styles
 
 	window.Quill.register('modules/imageResize', ImageResize);
