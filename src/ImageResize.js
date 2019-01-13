@@ -163,7 +163,7 @@ export default class ImageResize {
 				parent.scrollLeft}px`,
 			top: `${imgRect.top - containerRect.top + parent.scrollTop}px`,
 			width: `${imgRect.width}px`,
-			height: `${imgRect.height}px`,
+			height: `${imgRect.height}px`
 		});
 	};
 
@@ -178,7 +178,7 @@ export default class ImageResize {
 			'userSelect',
 			'mozUserSelect',
 			'webkitUserSelect',
-			'msUserSelect',
+			'msUserSelect'
 		].forEach(prop => {
 			// set on contenteditable element and <html>
 			this.quill.root.style[prop] = value;
@@ -197,39 +197,5 @@ export default class ImageResize {
 }
 
 if (window.Quill) {
-	//BEGIN allow image alignment styles
-	const ImageFormatAttributesList = ['alt', 'height', 'width', 'style'];
-
-	var BaseImageFormat = window.Quill.import('formats/image');
-	class ImageFormat extends BaseImageFormat {
-		static formats(domNode) {
-			return ImageFormatAttributesList.reduce(function(
-				formats,
-				attribute
-			) {
-				if (domNode.hasAttribute(attribute)) {
-					formats[attribute] = domNode.getAttribute(attribute);
-				}
-				return formats;
-			},
-			{});
-		}
-		format(name, value) {
-			if (ImageFormatAttributesList.indexOf(name) > -1) {
-				if (value) {
-					this.domNode.setAttribute(name, value);
-				} else {
-					this.domNode.removeAttribute(name);
-				}
-			} else {
-				super.format(name, value);
-			}
-		}
-	}
-
-	// window.Quill.register(ImageFormat, true);
-	window.Quill.register('formats/image', ImageFormat);
-	//END allow image alignment styles
-
 	window.Quill.register('modules/imageResize', ImageResize);
 }

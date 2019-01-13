@@ -8,7 +8,6 @@ a module that enables copy-paste and drag/drop for Quill.
 ## What features have been improved since fork
 
 -   fixed the cant imports from undefined error
--   quill content will response to inline style change
 -   add a throttle about 100ms to mousemove event when drag the handle to resize the image
 
 ## Demo
