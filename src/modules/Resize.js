@@ -1,7 +1,7 @@
 import { BaseModule } from './BaseModule';
 
 export class Resize extends BaseModule {
-	onCreate = () => {
+	onCreate() {
 		// track resize handles
 		this.boxes = [];
 
@@ -12,14 +12,14 @@ export class Resize extends BaseModule {
 		this.addBox('nesw-resize'); // bottom left
 
 		this.positionBoxes();
-	};
+	}
 
-	onDestroy = () => {
+	onDestroy() {
 		// reset drag handle cursors
 		this.setCursor('');
-	};
+	}
 
-	positionBoxes = () => {
+	positionBoxes() {
 		const handleXOffset = `${-parseFloat(this.options.handleStyles.width) /
 			2}px`;
 		const handleYOffset = `${-parseFloat(this.options.handleStyles.height) /
@@ -34,9 +34,9 @@ export class Resize extends BaseModule {
 		].forEach((pos, idx) => {
 			Object.assign(this.boxes[idx].style, pos);
 		});
-	};
+	}
 
-	addBox = cursor => {
+	addBox(cursor) {
 		// create div element for resize handle
 		const box = document.createElement('div');
 
@@ -54,9 +54,9 @@ export class Resize extends BaseModule {
 		this.overlay.appendChild(box);
 		// keep track of drag handle
 		this.boxes.push(box);
-	};
+	}
 
-	handleMousedown = evt => {
+	handleMousedown(evt) {
 		// note which box
 		this.dragBox = evt.target;
 		// note starting mousedown position
@@ -69,15 +69,15 @@ export class Resize extends BaseModule {
 		this.throttleDrag = this.throttle(this.handleDrag, 100);
 		document.addEventListener('mousemove', this.throttleDrag, false);
 		document.addEventListener('mouseup', this.handleMouseup, false);
-	};
+	}
 
-	handleMouseup = () => {
+	handleMouseup() {
 		// reset cursor everywhere
 		this.setCursor('');
 		// stop listening for movement and mouseup
 		document.removeEventListener('mousemove', this.throttleDrag);
 		document.removeEventListener('mouseup', this.handleMouseup);
-	};
+	}
 
 	throttle = (fun, delay) => {
 		var timer = null;
@@ -97,9 +97,9 @@ export class Resize extends BaseModule {
 				}, remaining);
 			}
 		};
-	};
+	}
 
-	handleDrag = evt => {
+	handleDrag(evt) {
 		if (!this.img) {
 			// image not set yet
 			return;
@@ -114,11 +114,11 @@ export class Resize extends BaseModule {
 			this.img.width = Math.round(this.preDragWidth + deltaX);
 		}
 		this.requestUpdate();
-	};
+	}
 
-	setCursor = value => {
+	setCursor(value) {
 		[document.body, this.img].forEach(el => {
 			el.style.cursor = value; // eslint-disable-line no-param-reassign
 		});
-	};
+	}
 }

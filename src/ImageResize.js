@@ -46,7 +46,7 @@ export default class ImageResize {
 		this.modules = [];
 	}
 
-	initializeModules = () => {
+	initializeModules() {
 		this.removeModules();
 
 		this.modules = this.moduleClasses.map(
@@ -58,24 +58,24 @@ export default class ImageResize {
 		});
 
 		this.onUpdate();
-	};
+	}
 
-	onUpdate = () => {
+	onUpdate() {
 		this.repositionElements();
 		this.modules.forEach(module => {
 			module.onUpdate();
 		});
-	};
+	}
 
-	removeModules = () => {
+	removeModules() {
 		this.modules.forEach(module => {
 			module.onDestroy();
 		});
 
 		this.modules = [];
-	};
+	}
 
-	handleClick = evt => {
+	handleClick(evt) {
 		if (
 			evt.target &&
 			evt.target.tagName &&
@@ -95,18 +95,18 @@ export default class ImageResize {
 			// clicked on a non image
 			this.hide();
 		}
-	};
+	}
 
-	show = img => {
+	show(img) {
 		// keep track of this img element
 		this.img = img;
 
 		this.showOverlay();
 
 		this.initializeModules();
-	};
+	}
 
-	showOverlay = () => {
+	showOverlay() {
 		if (this.overlay) {
 			this.hideOverlay();
 		}
@@ -127,9 +127,9 @@ export default class ImageResize {
 		this.quill.root.parentNode.appendChild(this.overlay);
 
 		this.repositionElements();
-	};
+	}
 
-	hideOverlay = () => {
+	hideOverlay() {
 		if (!this.overlay) {
 			return;
 		}
@@ -144,9 +144,9 @@ export default class ImageResize {
 
 		// reset user-select
 		this.setUserSelect('');
-	};
+	}
 
-	repositionElements = () => {
+	repositionElements() {
 		if (!this.overlay || !this.img) {
 			return;
 		}
@@ -163,37 +163,37 @@ export default class ImageResize {
 				parent.scrollLeft}px`,
 			top: `${imgRect.top - containerRect.top + parent.scrollTop}px`,
 			width: `${imgRect.width}px`,
-			height: `${imgRect.height}px`
+			height: `${imgRect.height}px`,
 		});
-	};
+	}
 
-	hide = () => {
+	hide() {
 		this.hideOverlay();
 		this.removeModules();
 		this.img = undefined;
-	};
+	}
 
-	setUserSelect = value => {
+	setUserSelect(value) {
 		[
 			'userSelect',
 			'mozUserSelect',
 			'webkitUserSelect',
-			'msUserSelect'
+			'msUserSelect',
 		].forEach(prop => {
 			// set on contenteditable element and <html>
 			this.quill.root.style[prop] = value;
 			document.documentElement.style[prop] = value;
 		});
-	};
+	}
 
-	checkImage = evt => {
+	checkImage(evt) {
 		if (this.img) {
 			if (evt.keyCode == 46 || evt.keyCode == 8) {
 				window.Quill.find(this.img).deleteAt(0);
 			}
 			this.hide();
 		}
-	};
+	}
 }
 
 if (window.Quill) {

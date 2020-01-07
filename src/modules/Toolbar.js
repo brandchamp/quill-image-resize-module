@@ -12,7 +12,7 @@ const MarginStyle = new Parchment.Attributor.Style('margin', 'margin');
 const DisplayStyle = new Parchment.Attributor.Style('display', 'display');
 
 export class Toolbar extends BaseModule {
-    onCreate = () => {
+    onCreate() {
 		// Setup Toolbar
         this.toolbar = document.createElement('div');
         Object.assign(this.toolbar.style, this.options.toolbarStyles);
@@ -21,15 +21,15 @@ export class Toolbar extends BaseModule {
         // Setup Buttons
         this._defineAlignments();
         this._addToolbarButtons();
-    };
+    }
 
 	// The toolbar and its children will be destroyed when the overlay is removed
-    onDestroy = () => {};
+    onDestroy() {}
 
 	// Nothing to update on drag because we are are positioned relative to the overlay
-    onUpdate = () => {};
+    onUpdate() {}
 
-    _defineAlignments = () => {
+    _defineAlignments() {
         this.alignments = [
             {
                 icon: IconAlignLeft,
@@ -59,9 +59,9 @@ export class Toolbar extends BaseModule {
                 isApplied: () => FloatStyle.value(this.img) == 'right',
             },
         ];
-    };
+    }
 
-    _addToolbarButtons = () => {
+    _addToolbarButtons() {
 		const buttons = [];
 		this.alignments.forEach((alignment, idx) => {
 			const button = document.createElement('span');
@@ -94,10 +94,10 @@ export class Toolbar extends BaseModule {
 			}
 			this.toolbar.appendChild(button);
 		});
-    };
+    }
 
-    _selectButton = (button) => {
+    _selectButton(button) {
 		button.style.filter = 'invert(20%)';
-    };
+    }
 
 }
