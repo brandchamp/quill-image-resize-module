@@ -54,7 +54,7 @@ export default class ImageResize {
 		);
 
 		this.modules.forEach(module => {
-			module.onCreate();
+			module.onCreate(this.quill);
 		});
 
 		this.onUpdate();

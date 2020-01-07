@@ -3,24 +3,24 @@ import IconAlignCenter from 'quill/assets/icons/align-center.svg';
 import IconAlignRight from 'quill/assets/icons/align-right.svg';
 import { BaseModule } from './BaseModule';
 
-import VQuill from 'quill';
-const Quill = window.Quill || VQuill;
-
-const Parchment = Quill.imports.parchment;
-const FloatStyle = new Parchment.Attributor.Style('float', 'float');
-const MarginStyle = new Parchment.Attributor.Style('margin', 'margin');
-const DisplayStyle = new Parchment.Attributor.Style('display', 'display');
-
 export class Toolbar extends BaseModule {
-    onCreate() {
+    onCreate(quill) {
+        // Prepare Style handlers
+        // Note: loading from passed quill instance to reduce build
+        const Parchment = quill.imports.parchment;
+        const FloatStyle = new Parchment.Attributor.Style('float', 'float');
+        const MarginStyle = new Parchment.Attributor.Style('margin', 'margin');
+        const DisplayStyle = new Parchment.Attributor.Style('display', 'display');
+        const styles = { DisplayStyle, MarginStyle, FloatStyle };
+
 		// Setup Toolbar
         this.toolbar = document.createElement('div');
         Object.assign(this.toolbar.style, this.options.toolbarStyles);
         this.overlay.appendChild(this.toolbar);
 
         // Setup Buttons
-        this._defineAlignments();
-        this._addToolbarButtons();
+        this._defineAlignments(styles);
+        this._addToolbarButtons(styles);
     }
 
 	// The toolbar and its children will be destroyed when the overlay is removed
@@ -29,7 +29,7 @@ export class Toolbar extends BaseModule {
 	// Nothing to update on drag because we are are positioned relative to the overlay
     onUpdate() {}
 
-    _defineAlignments() {
+    _defineAlignments({ DisplayStyle, MarginStyle, FloatStyle }) {
         this.alignments = [
             {
                 icon: IconAlignLeft,
@@ -61,7 +61,7 @@ export class Toolbar extends BaseModule {
         ];
     }
 
-    _addToolbarButtons() {
+    _addToolbarButtons({ DisplayStyle, MarginStyle, FloatStyle }) {
 		const buttons = [];
 		this.alignments.forEach((alignment, idx) => {
 			const button = document.createElement('span');
