@@ -79,7 +79,7 @@ export class Resize extends BaseModule {
 		document.removeEventListener('mouseup', this.handleMouseup);
 	}
 
-	throttle (fun, delay) {
+	throttle = (fun, delay) => {
 		var timer = null;
 		var startTime = Date.now();
 		return function() {
