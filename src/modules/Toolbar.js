@@ -4,7 +4,7 @@ import IconAlignRight from 'quill/assets/icons/align-right.svg';
 import { BaseModule } from './BaseModule';
 
 export class Toolbar extends BaseModule {
-    onCreate(quill) {
+    onCreate = (quill) => {
         // Prepare Style handlers
         // Note: loading from passed quill instance to reduce build
         const Parchment = quill.imports.parchment;
@@ -21,15 +21,15 @@ export class Toolbar extends BaseModule {
         // Setup Buttons
         this._defineAlignments(styles);
         this._addToolbarButtons(styles);
-    }
+    };
 
 	// The toolbar and its children will be destroyed when the overlay is removed
-    onDestroy() {}
+    onDestroy = () => {};
 
 	// Nothing to update on drag because we are are positioned relative to the overlay
-    onUpdate() {}
+    onUpdate = () => {};
 
-    _defineAlignments({ DisplayStyle, MarginStyle, FloatStyle }) {
+    _defineAlignments = ({ DisplayStyle, MarginStyle, FloatStyle }) => {
         this.alignments = [
             {
                 icon: IconAlignLeft,
@@ -59,9 +59,9 @@ export class Toolbar extends BaseModule {
                 isApplied: () => FloatStyle.value(this.img) == 'right',
             },
         ];
-    }
+    };
 
-    _addToolbarButtons({ DisplayStyle, MarginStyle, FloatStyle }) {
+    _addToolbarButtons = ({ DisplayStyle, MarginStyle, FloatStyle }) => {
 		const buttons = [];
 		this.alignments.forEach((alignment, idx) => {
 			const button = document.createElement('span');
@@ -94,10 +94,10 @@ export class Toolbar extends BaseModule {
 			}
 			this.toolbar.appendChild(button);
 		});
-    }
+    };
 
-    _selectButton(button) {
+    _selectButton = (button) => {
 		button.style.filter = 'invert(20%)';
-    }
+    };
 
 }
