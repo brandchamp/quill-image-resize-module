@@ -54,7 +54,7 @@ export default class ImageResize {
 		);
 
 		this.modules.forEach(module => {
-			module.onCreate(this.quill);
+			module.onCreate();
 		});
 
 		this.onUpdate();
@@ -163,7 +163,7 @@ export default class ImageResize {
 				parent.scrollLeft}px`,
 			top: `${imgRect.top - containerRect.top + parent.scrollTop}px`,
 			width: `${imgRect.width}px`,
-			height: `${imgRect.height}px`
+			height: `${imgRect.height}px`,
 		});
 	};
 
@@ -178,7 +178,7 @@ export default class ImageResize {
 			'userSelect',
 			'mozUserSelect',
 			'webkitUserSelect',
-			'msUserSelect'
+			'msUserSelect',
 		].forEach(prop => {
 			// set on contenteditable element and <html>
 			this.quill.root.style[prop] = value;

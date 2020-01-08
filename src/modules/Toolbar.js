@@ -2,19 +2,21 @@ import IconAlignLeft from 'quill/assets/icons/align-left.svg';
 import IconAlignCenter from 'quill/assets/icons/align-center.svg';
 import IconAlignRight from 'quill/assets/icons/align-right.svg';
 import { BaseModule } from './BaseModule';
+import Quill from 'quill';
 
 export class Toolbar extends BaseModule {
-    onCreate = (Quill) => {
+    onCreate = () => {
+		// Setup Toolbar
+        this.toolbar = document.createElement('div');
+        Object.assign(this.toolbar.style, this.options.toolbarStyles);
+        this.overlay.appendChild(this.toolbar);
+
+        // Prepare styless
         const Parchment = Quill.import('parchment');
         const FloatStyle = new Parchment.Attributor.Style('float', 'float');
         const MarginStyle = new Parchment.Attributor.Style('margin', 'margin');
         const DisplayStyle = new Parchment.Attributor.Style('display', 'display');
         const styles = { DisplayStyle, MarginStyle, FloatStyle };
-
-		// Setup Toolbar
-        this.toolbar = document.createElement('div');
-        Object.assign(this.toolbar.style, this.options.toolbarStyles);
-        this.overlay.appendChild(this.toolbar);
 
         // Setup Buttons
         this._defineAlignments(styles);
