@@ -4,6 +4,12 @@ import IconAlignRight from 'quill/assets/icons/align-right.svg';
 import { BaseModule } from './BaseModule';
 import Quill from 'quill';
 
+// Prepare styless
+const Parchment = Quill.imports.parchment;
+const FloatStyle = new Parchment.Attributor.Style('float', 'float');
+const MarginStyle = new Parchment.Attributor.Style('margin', 'margin');
+const DisplayStyle = new Parchment.Attributor.Style('display', 'display');
+
 export class Toolbar extends BaseModule {
     onCreate = () => {
 		// Setup Toolbar
@@ -11,16 +17,9 @@ export class Toolbar extends BaseModule {
         Object.assign(this.toolbar.style, this.options.toolbarStyles);
         this.overlay.appendChild(this.toolbar);
 
-        // Prepare styless
-        const Parchment = Quill.import('parchment');
-        const FloatStyle = new Parchment.Attributor.Style('float', 'float');
-        const MarginStyle = new Parchment.Attributor.Style('margin', 'margin');
-        const DisplayStyle = new Parchment.Attributor.Style('display', 'display');
-        const styles = { DisplayStyle, MarginStyle, FloatStyle };
-
         // Setup Buttons
-        this._defineAlignments(styles);
-        this._addToolbarButtons(styles);
+        this._defineAlignments();
+        this._addToolbarButtons();
     };
 
 	// The toolbar and its children will be destroyed when the overlay is removed
@@ -29,7 +28,7 @@ export class Toolbar extends BaseModule {
 	// Nothing to update on drag because we are are positioned relative to the overlay
     onUpdate = () => {};
 
-    _defineAlignments = ({ DisplayStyle, MarginStyle, FloatStyle }) => {
+    _defineAlignments = () => {
         this.alignments = [
             {
                 icon: IconAlignLeft,
@@ -61,7 +60,7 @@ export class Toolbar extends BaseModule {
         ];
     };
 
-    _addToolbarButtons = ({ DisplayStyle, MarginStyle, FloatStyle }) => {
+    _addToolbarButtons = () => {
 		const buttons = [];
 		this.alignments.forEach((alignment, idx) => {
 			const button = document.createElement('span');
