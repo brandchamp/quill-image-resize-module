@@ -1,6 +1,6 @@
-import IconAlignLeft from 'quill/assets/icons/align-left.svg';
-import IconAlignCenter from 'quill/assets/icons/align-center.svg';
-import IconAlignRight from 'quill/assets/icons/align-right.svg';
+import IconAlignLeft from '../../assets/align-left.svg';
+import IconAlignCenter from '../../assets/align-center.svg';
+import IconAlignRight from '../../assets/align-right.svg';
 import { BaseModule } from './BaseModule';
 
 export default function toolbarFactory(Quill) {
