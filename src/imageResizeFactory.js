@@ -1,4 +1,3 @@
-import defaultsDeep from 'lodash/defaultsDeep';
 import DefaultOptions from './DefaultOptions';
 import { DisplaySize } from './modules/DisplaySize';
 import toolbarFactory from './modules/toolbarFactory';
@@ -8,7 +7,7 @@ import { Resize } from './modules/Resize';
 /**
  * Pass in Quill dependency to avoid includin quill source code in the plugin bundle
  */
-export default function imageResizeFactory(Quill) {
+export default function imageResizeFactory({ Quill, defaultsDeep }) {
 	const Toolbar = toolbarFactory(Quill)
 	const knownModules = { DisplaySize, Toolbar, Resize };
 

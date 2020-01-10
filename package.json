@@ -47,8 +47,5 @@
 		"eslint-plugin-react": "^6.10.3",
 		"webpack": "^2.3.3",
 		"raw-loader": "^0.5.1"
-	},
-	"dependencies": {
-		"lodash": "^4.17.4"
 	}
 }
