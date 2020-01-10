@@ -1,10 +1,10 @@
 var path = require('path');
 
 module.exports = {
-    entry: "./src/ImageResize.js",
+    entry: "./src/imageResizeFactory.js",
     output: {
         path: __dirname,
-        library: 'ImageResize',
+        library: 'imageResize',
         libraryTarget: 'umd',
         filename: "image-resize.min.js"
     },
